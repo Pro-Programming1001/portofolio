@@ -1,597 +1,471 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="meta.title">Rofaida Bouchama | Full-Stack Web Developer</title>
-  <meta name="description"
-    content="Portfolio of Rofaida Bouchama, Computer Science graduate and Full-Stack Web Developer building with Next.js, TypeScript, Node.js and PostgreSQL." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Tajawal:wght@400;500;700&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pro-Programming | Learn · Build · Share</title>
+<meta name="description" content="Pro-Programming: practical programming projects across web, desktop and systems.">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+:root{
+  --bg:#0a0a0a; --bg-soft:#121212; --card:rgba(255,255,255,.04); --card-hover:rgba(255,255,255,.07);
+  --border:rgba(255,255,255,.12); --border-strong:rgba(255,255,255,.35);
+  --fg:#fafafa; --muted:#a3a3a3; --dim:#6e6e6e;
+  --glow:rgba(255,255,255,.09); --nav:rgba(10,10,10,.78);
+  --t1:#303030; --t2:#0d0d0d; --shadow:rgba(0,0,0,.45);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+[data-theme="light"]{
+  --bg:#f4f4f4; --bg-soft:#ececec; --card:rgba(0,0,0,.035); --card-hover:rgba(0,0,0,.06);
+  --border:rgba(0,0,0,.14); --border-strong:rgba(0,0,0,.4);
+  --fg:#0a0a0a; --muted:#4f4f4f; --dim:#8a8a8a;
+  --glow:rgba(0,0,0,.07); --nav:rgba(244,244,244,.82);
+  --t1:#d2d2d2; --t2:#f3f3f3; --shadow:rgba(0,0,0,.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;overflow-x:hidden;transition:background .5s,color .5s}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--fg);color:var(--bg)}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--dim);border-radius:5px}
+
+/* Background */
+.bg-grid{position:fixed;inset:0;z-index:-2;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:56px 56px;opacity:.35;-webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%);mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%)}
+.orb{position:fixed;border-radius:50%;filter:blur(90px);background:var(--glow);z-index:-1;animation:blob 14s ease-in-out infinite}
+.o1{width:460px;height:460px;top:8%;left:6%}
+.o2{width:380px;height:380px;top:38%;right:4%;animation-delay:-5s}
+.o3{width:420px;height:420px;bottom:2%;left:38%;animation-delay:-9s}
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--fg);z-index:100}
+.cursor{position:fixed;left:0;top:0;width:34px;height:34px;border:1.5px solid #fff;border-radius:50%;pointer-events:none;z-index:200;mix-blend-mode:difference;opacity:0;transition:width .25s,height .25s,background .25s,opacity .3s}
+.cursor.on{opacity:1}
+.cursor.hover{width:62px;height:62px;background:#fff}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:90;border-bottom:1px solid transparent;transition:background .4s,border-color .4s}
+nav.scrolled{background:var(--nav);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-color:var(--border)}
+.nav-in{max-width:1200px;margin:auto;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em;font-size:1.15rem}
+.logo-mark{width:36px;height:36px;border-radius:10px;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-family:var(--mono);font-size:.85rem;font-weight:800;transition:transform .4s}
+.logo:hover .logo-mark{transform:rotate(-10deg) scale(1.1)}
+.links{display:flex;gap:30px}
+.links a{position:relative;font-size:.92rem;color:var(--muted);padding:4px 0;transition:color .3s}
+.links a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--fg);transition:width .3s}
+.links a:hover,.links a.active{color:var(--fg)}
+.links a:hover::after,.links a.active::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:12px}
+.icon-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--fg);display:grid;place-items:center;cursor:pointer;transition:transform .3s,border-color .3s}
+.icon-btn:hover{transform:scale(1.1) rotate(15deg);border-color:var(--border-strong)}
+.icon-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+[data-theme="dark"] .i-sun{display:none}
+[data-theme="light"] .i-moon{display:none}
+.burger{display:none}
+
+/* Layout */
+section{padding:120px 24px;position:relative}
+.wrap{max-width:1200px;margin:auto}
+.sec-head{text-align:center;margin-bottom:64px}
+.eyebrow{font-family:var(--mono);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:14px}
+.sec-head h2{font-size:clamp(2rem,5vw,3.6rem);font-weight:900;letter-spacing:-.03em;line-height:1.1}
+.bar{width:70px;height:3px;background:var(--fg);margin:22px auto 0;border-radius:3px}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;padding-top:130px}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.fade{opacity:0;animation:fadeUp .9s ease forwards;animation-delay:var(--d,0s)}
+.badge{display:inline-flex;align-items:center;gap:10px;padding:9px 18px;border:1px solid var(--border);border-radius:999px;background:var(--card);font-size:.82rem;font-family:var(--mono);color:var(--muted);margin-bottom:28px}
+.badge i{width:8px;height:8px;border-radius:50%;background:var(--fg);animation:pulse 2s infinite}
+.title{font-size:clamp(2.4rem,8.4vw,6.6rem);font-weight:900;letter-spacing:-.04em;line-height:1.05;margin-bottom:22px}
+.title .word{display:inline-block;white-space:nowrap}
+.ch{display:inline-block;opacity:0;transform:translateY(50px) rotateX(-60deg);filter:blur(10px);animation:chIn .9s cubic-bezier(.2,.8,.2,1) forwards,wave 4s ease-in-out infinite;animation-delay:calc(var(--i)*.07s + .3s),calc(var(--i)*.12s + 2.2s)}
+.tagline{font-family:var(--mono);font-size:1.05rem;color:var(--muted);letter-spacing:.12em;margin-bottom:22px}
+.tagline b{color:var(--fg)}
+.lead{font-size:1.15rem;color:var(--muted);max-width:560px;margin-bottom:38px}
+.cta{display:flex;flex-wrap:wrap;gap:16px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;border-radius:999px;font-weight:700;font-size:.95rem;border:1.5px solid var(--fg);transition:transform .3s,box-shadow .3s,background .3s,color .3s}
+.btn-fill{background:var(--fg);color:var(--bg)}
+.btn-fill:hover{transform:translateY(-4px);box-shadow:0 14px 34px var(--shadow)}
+.btn-line{background:transparent;color:var(--fg)}
+.btn-line:hover{background:var(--fg);color:var(--bg);transform:translateY(-4px)}
+.visual{position:relative;width:100%;max-width:460px;aspect-ratio:1;margin:auto}
+.ring{position:absolute;border-radius:50%;border:1px dashed var(--border-strong)}
+.r1{inset:0;animation:spin 30s linear infinite}
+.r2{inset:9%;border-style:solid;border-color:var(--border);animation:spin 22s linear infinite reverse}
+.r3{inset:18%;animation:spin 40s linear infinite}
+.code{position:absolute;top:50%;left:50%;translate:-50% -50%;width:88%;background:var(--bg-soft);border:1px solid var(--border-strong);border-radius:16px;box-shadow:0 30px 80px var(--shadow);overflow:hidden;animation:floaty 6s ease-in-out infinite}
+.code-top{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid var(--border)}
+.code-top i{width:11px;height:11px;border-radius:50%;background:var(--dim);opacity:.7}
+.code-top span{margin-left:10px;font-family:var(--mono);font-size:.75rem;color:var(--dim)}
+.code-body{padding:18px 20px;font-family:var(--mono);font-size:.82rem;color:var(--muted)}
+.ln{white-space:pre;opacity:0;animation:lnIn .6s ease forwards;animation-delay:var(--d)}
+.k{color:var(--fg);font-weight:700}
+.s{color:var(--fg);opacity:.6;font-style:italic}
+.caret{display:inline-block;width:8px;height:1em;background:var(--fg);vertical-align:-2px;margin-left:4px;animation:blink 1s steps(1) infinite}
+.chip{position:absolute;padding:9px 16px;border-radius:12px;background:var(--fg);color:var(--bg);font-family:var(--mono);font-size:.8rem;font-weight:700;box-shadow:0 10px 30px var(--shadow);animation:floaty 4s ease-in-out infinite}
+.c1{top:2%;right:6%}.c2{bottom:6%;left:0;animation-delay:-1s}.c3{top:38%;left:0;animation-delay:-2s}.c4{bottom:14%;right:0;animation-delay:-.5s}
+.scroll-hint{position:absolute;bottom:26px;left:50%;translate:-50% 0;width:1.5px;height:54px;background:linear-gradient(var(--fg),transparent);animation:drop 2s ease-in-out infinite}
+
+/* Cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:32px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:transform .35s,border-color .3s,background .3s}
+.card:hover{transform:translateY(-8px);border-color:var(--border-strong);background:var(--card-hover)}
+.ico{width:56px;height:56px;border-radius:16px;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-family:var(--mono);font-weight:800;margin-bottom:22px;transition:transform .4s}
+.card:hover .ico{transform:rotate(-8deg) scale(1.08)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:28px}
+.num{font-size:3.4rem;font-weight:900;letter-spacing:-.03em;line-height:1}
+.lbl{color:var(--muted);margin-top:8px}
+.about-text{text-align:center;font-size:1.18rem;color:var(--muted);max-width:860px;margin:auto;padding:44px}
+.about-text b{color:var(--fg)}
+.skills{display:flex;flex-wrap:wrap;gap:24px;justify-content:center}
+.skill{flex:1 1 300px;max-width:370px}
+.skill h3{font-size:1.4rem;margin-bottom:18px}
+.tags{display:flex;flex-wrap:wrap;gap:9px}
+.tag{padding:7px 14px;border:1px solid var(--border);border-radius:999px;font-size:.84rem;font-family:var(--mono);color:var(--muted);transition:background .3s,color .3s}
+.tag:hover{background:var(--fg);color:var(--bg)}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:28px}
+.proj{padding:0;overflow:hidden}
+.thumb{height:200px;display:grid;place-items:center;position:relative;overflow:hidden;background:linear-gradient(var(--ang),var(--t1),var(--t2));border-bottom:1px solid var(--border)}
+.thumb::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent 0 14px,var(--border) 14px 15px);opacity:.5}
+.idx{position:relative;font-size:5.5rem;font-weight:900;color:transparent;-webkit-text-stroke:1.5px var(--border-strong);transition:transform .5s}
+.proj:hover .idx{transform:scale(1.18) rotate(-4deg)}
+.proj-body{padding:28px}
+.proj-body h3{font-size:1.4rem;margin-bottom:8px}
+.proj-body p{color:var(--muted);margin-bottom:18px}
+.proj-body .tags{margin-bottom:22px}
+.link{display:inline-flex;gap:8px;font-weight:700}
+.link span{transition:transform .3s}
+.link:hover span{transform:translateX(6px)}
+.timeline{position:relative;max-width:820px;margin:auto;padding-left:74px}
+.timeline::before{content:"";position:absolute;left:23px;top:0;bottom:0;width:2px;background:linear-gradient(var(--fg),var(--border))}
+.step{position:relative;margin-bottom:28px}
+.step:last-child{margin-bottom:0}
+.dot{position:absolute;left:-74px;top:26px;width:48px;height:48px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-family:var(--mono);font-weight:800;font-size:.85rem}
+.step h3{font-size:1.5rem;margin-bottom:6px}
+.step p{color:var(--muted)}
+.contact{text-align:center}
+.contact-lead{font-size:1.2rem;color:var(--muted);max-width:620px;margin:0 auto 52px}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:24px;max-width:900px;margin:0 auto 48px}
+.contact-grid .ico{margin:0 auto 20px}
+.contact-grid h3{font-size:1.2rem}
+.contact-grid p{color:var(--muted);font-size:.95rem;word-break:break-all}
+footer{padding:64px 24px 40px;border-top:1px solid var(--border);text-align:center}
+footer .logo{justify-content:center;margin-bottom:14px}
+footer p{color:var(--muted);margin-bottom:6px}
+footer small{color:var(--dim)}
+footer a.top{display:inline-block;margin-top:18px;font-family:var(--mono);font-size:.85rem;color:var(--muted);transition:color .3s}
+footer a.top:hover{color:var(--fg)}
+
+/* Scroll reveal */
+.js .reveal{opacity:0;translate:0 50px;transition:opacity .9s ease,translate .9s cubic-bezier(.2,.7,.2,1),scale .9s ease}
+.js .reveal[data-anim="left"]{translate:-60px 0}
+.js .reveal[data-anim="scale"]{translate:0 0;scale:.85}
+.js .card.reveal{transition:opacity .9s ease,translate .9s cubic-bezier(.2,.7,.2,1),scale .9s ease,transform .35s ease,border-color .3s,background .3s}
+.js .reveal.show{opacity:1;translate:0 0;scale:1}
+
+/* Keyframes */
+@keyframes chIn{to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes wave{0%,100%{color:var(--fg);transform:translateY(0)}50%{color:var(--dim);transform:translateY(-7px)}}
+@keyframes fadeUp{from{opacity:0;translate:0 30px}to{opacity:1;translate:0 0}}
+@keyframes lnIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes blob{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-50px) scale(1.1)}66%{transform:translate(-30px,30px) scale(.92)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+@keyframes blink{50%{opacity:0}}
+@keyframes drop{0%{opacity:0;transform:translateY(-10px)}50%{opacity:1}100%{opacity:0;transform:translateY(14px)}}
+
+/* Responsive */
+@media(max-width:960px){
+  .hero-grid{grid-template-columns:1fr;text-align:center}
+  .hero-grid .lead{margin-left:auto;margin-right:auto}
+  .cta{justify-content:center}
+  .visual{max-width:380px}
+  .stats{grid-template-columns:1fr}
+}
+@media(max-width:820px){
+  .burger{display:grid}
+  .links{position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--nav);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);max-height:0;overflow:hidden;transition:max-height .4s}
+  .links.open{max-height:380px}
+  .links a{padding:16px 24px;border-top:1px solid var(--border)}
+}
+@media(max-width:560px){
+  section{padding:90px 18px}
+  .card{padding:24px}
+  .about-text{padding:28px}
+  .timeline{padding-left:62px}
+  .dot{left:-62px;width:42px;height:42px}
+  .timeline::before{left:20px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .ch,.ln,.fade,.js .reveal{opacity:1!important;translate:none!important;scale:none!important;transform:none!important;filter:none!important}
+}
+</style>
 </head>
+<body>
 
-<body class="light-theme">
+<div class="bg-grid"></div>
+<div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+<div class="progress" id="progress"></div>
+<div class="cursor" id="cursor"></div>
 
-  <!-- Scroll Progress Bar -->
-  <div class="scroll-progress" id="scroll-progress"></div>
-
-  <!-- Molecule / Node Canvas Background -->
-  <canvas id="molecule-canvas" aria-hidden="true"></canvas>
-
-  <!-- Cursor Glow -->
-  <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
-
-  <!-- Back to Top -->
-  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
-    <i class="fa-solid fa-arrow-up"></i>
-  </button>
-
-  <!-- Toast Notification -->
-  <div class="toast-notification" id="success-toast">
-    <div class="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
-    <div class="toast-content">
-      <h4>Message sent</h4>
-      <p>Thanks for reaching out — I'll reply soon.</p>
+<nav id="nav">
+  <div class="nav-in">
+    <a href="#home" class="logo"><span class="logo-mark">&lt;/&gt;</span>Pro-Programming</a>
+    <div class="links" id="links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#approach">Approach</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <button class="icon-btn" id="theme" aria-label="Toggle theme">
+        <svg class="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 1v3M12 20v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M1 12h3M20 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+      </button>
+      <button class="icon-btn burger" id="burger" aria-label="Menu">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
     </div>
   </div>
+</nav>
 
-  <!-- ===================== HEADER ===================== -->
-  <header class="header" id="header">
-    <div class="header-container">
-      <a href="#hero" class="logo"><span class="logo-accent">R.</span>Bouchama</a>
-      <nav class="nav" id="nav" aria-label="Main Navigation">
-        <ul class="nav-list" id="nav-list">
-          <li><a href="#about" class="nav-link" data-i18n="nav.about">About</a></li>
-          <li><a href="#skills" class="nav-link" data-i18n="nav.skills">Skills</a></li>
-          <li><a href="#projects" class="nav-link" data-i18n="nav.projects">Projects</a></li>
-          <li><a href="#experience" class="nav-link" data-i18n="nav.experience">Experience</a></li>
-          <li><a href="#education" class="nav-link" data-i18n="nav.education">Education</a></li>
-          <li><a href="#certifications" class="nav-link" data-i18n="nav.certs">Certifications</a></li>
-          <li><a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="nav-actions">
-        <div class="lang-switch" id="lang-switch">
-          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
-          <button class="lang-btn" data-lang="ar" aria-label="العربية">AR</button>
-          <button class="lang-btn" data-lang="fr" aria-label="Français">FR</button>
-        </div>
-        <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
-          <i class="fa-solid fa-moon moon-icon"></i>
-          <i class="fa-solid fa-sun  sun-icon"></i>
-        </button>
-        <button class="mobile-nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-          <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-        </button>
+<!-- Hero -->
+<section id="home" class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="badge fade" style="--d:.1s"><i></i>Programming Hub</div>
+      <h1 class="title" id="title">Pro-Programming</h1>
+      <p class="tagline fade" style="--d:1.4s">Learn <b>·</b> Build <b>·</b> Share</p>
+      <p class="lead fade" style="--d:1.6s">A space for practical programming across web, desktop and systems. Real projects, clean code, shared openly.</p>
+      <div class="cta fade" style="--d:1.8s">
+        <a href="#projects" class="btn btn-fill">Explore Projects →</a>
+        <a href="#contact" class="btn btn-line">Get in Touch</a>
       </div>
     </div>
-  </header>
-
-  <main>
-    <!-- ===================== HERO ===================== -->
-    <section id="hero" class="hero-section">
-      <div class="container hero-container">
-        <div class="hero-content scroll-reveal">
-          <span class="badge" data-i18n="hero.badge">Computer Science Student — 2026</span>
-          <h1 class="hero-title"><span data-i18n="hero.title1">Rofaida</span> <br><span class="highlight" data-i18n="hero.title2">Bouchama</span></h1>
-          <h2 class="hero-subtitle" data-i18n="hero.subtitle">Full-Stack Web Developer</h2>
-          <p class="hero-description" data-i18n="hero.desc">
-            Computer Science graduate admitted to a Master's degree in Artificial Intelligence at Tissemsilt
-            University (starting September 2026), with hands-on experience building full-stack web applications
-            using Next.js, TypeScript, Node.js, and PostgreSQL. Motivated to apply strong problem-solving skills
-            to a professional software engineering role.
-          </p>
-          <div class="hero-keywords">
-            <span>#NextJS</span>
-            <span>#TypeScript</span>
-            <span>#NodeJS</span>
-            <span>#PostgreSQL</span>
-            <span>#FullStack</span>
-          </div>
-          <div class="hero-ctas">
-            <a href="#projects" class="btn btn-primary" data-i18n="hero.cta1">View Projects</a>
-            <a href="#contact" class="btn btn-outline-cv" data-i18n="hero.cta2">Get In Touch</a>
-          </div>
-        </div>
-        <div class="hero-visual scroll-reveal delay-200">
-          <div class="image-wrapper">
-            <div class="glass-bg"></div>
-            <div class="hero-avatar" aria-label="Rofaida Bouchama">RB</div>
-            <div class="metric-badge">
-              <span class="number" data-count="3">0</span>
-              <span class="text" data-i18n="hero.metric">Projects Built</span>
-            </div>
-          </div>
+    <div class="visual fade" style="--d:.8s">
+      <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+      <div class="code">
+        <div class="code-top"><i></i><i></i><i></i><span>pro-programming.js</span></div>
+        <div class="code-body">
+          <div class="ln" style="--d:1.6s"><span class="k">const</span> page = {</div>
+          <div class="ln" style="--d:1.9s">  name: <span class="s">"Pro-Programming"</span>,</div>
+          <div class="ln" style="--d:2.2s">  learn: [<span class="s">"Web"</span>, <span class="s">"Desktop"</span>, <span class="s">"Systems"</span>],</div>
+          <div class="ln" style="--d:2.5s">  build: <span class="k">true</span>,</div>
+          <div class="ln" style="--d:2.8s">  share: <span class="k">true</span></div>
+          <div class="ln" style="--d:3.1s">};<span class="caret"></span></div>
         </div>
       </div>
-    </section>
-
-    <!-- ===================== ABOUT ===================== -->
-    <section id="about" class="about-section">
-      <div class="container">
-        <div class="section-header scroll-reveal">
-          <span class="subtitle" data-i18n="about.subtitle">Biography</span>
-          <h2 class="section-title" data-i18n="about.title">Academic &amp; Technical Journey</h2>
-        </div>
-        <div class="about-grid">
-          <div class="about-text scroll-reveal">
-            <p class="lead" data-i18n="about.p1">Rofaida Bouchama is a full-stack web developer who enjoys turning
-              ideas into working products — from the interface people touch to the database and deployment behind
-              it.</p>
-            <p data-i18n="about.p2">She completed her Bachelor's degree in Information Systems Engineering at
-              Tissemsilt University (2022–2025), and has been admitted to a Master's degree in Artificial
-              Intelligence at the same university starting September 2026. Along the way she has built full-stack
-              web platforms and desktop applications, and completed a technical internship at the Directorate of
-              Health in Tissemsilt.</p>
-            <p data-i18n="about.p3">She pairs a love of building with a careful, considered approach to design, and
-              is looking to join an engineering team that values clean code and genuine usability.</p>
-            <div class="about-metrics">
-              <div class="metric"><span class="metric-number" data-count="3">0</span><span class="metric-label" data-i18n="about.metric1">Projects
-                  Built</span></div>
-              <div class="metric"><span class="metric-number" data-count="20">0</span><span class="metric-label" data-i18n="about.metric2">Technologies
-                  Used</span></div>
-              <div class="metric"><span class="metric-number" data-count="4">0</span><span class="metric-label" data-i18n="about.metric3">Languages
-                  Spoken</span></div>
-            </div>
-          </div>
-          <div class="about-details scroll-reveal delay-200">
-            <div class="details-card">
-              <h3 class="card-title" data-i18n="about.card.title">Core Values</h3>
-              <ul class="values-list">
-                <li>
-                  <i class="fa-solid fa-code value-icon"></i>
-                  <div><strong data-i18n="about.value1.title">Clean, Maintainable Code</strong>
-                    <p data-i18n="about.value1.desc">Clear structure, names that explain themselves, and a habit of
-                      re-reading before every commit.</p>
-                  </div>
-                </li>
-                <li>
-                  <i class="fa-solid fa-users value-icon"></i>
-                  <div><strong data-i18n="about.value2.title">User Experience First</strong>
-                    <p data-i18n="about.value2.desc">Interfaces designed around what people actually need, not just
-                      how they look.</p>
-                  </div>
-                </li>
-                <li>
-                  <i class="fa-solid fa-graduation-cap value-icon"></i>
-                  <div><strong data-i18n="about.value3.title">Continuous Learning</strong>
-                    <p data-i18n="about.value3.desc">Moving from full-stack development into artificial intelligence
-                      as a natural next step toward building smarter tools.</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== FOCUS AREAS ===================== -->
-    <section id="focus" class="research-section">
-      <div class="container">
-        <div class="section-header scroll-reveal">
-          <span class="subtitle" data-i18n="focus.subtitle">Areas of Expertise</span>
-          <h2 class="section-title" data-i18n="focus.title">What I Build</h2>
-        </div>
-        <div class="research-grid">
-          <div class="research-card scroll-reveal">
-            <div class="focus-icon-wrapper"><i class="fa-solid fa-display"></i></div>
-            <div class="research-card-content">
-              <h3 data-i18n="focus.card1.title">Frontend Development</h3>
-              <p data-i18n="focus.card1.desc">Interactive interfaces with Next.js, React and TypeScript, styled with
-                Tailwind CSS and Bootstrap.</p>
-            </div>
-          </div>
-          <div class="research-card scroll-reveal delay-100">
-            <div class="focus-icon-wrapper"><i class="fa-solid fa-server"></i></div>
-            <div class="research-card-content">
-              <h3 data-i18n="focus.card2.title">Backend Services</h3>
-              <p data-i18n="focus.card2.desc">RESTful APIs with Node.js and Next.js API routes, with secure
-                authentication via JWT and bcrypt.</p>
-            </div>
-          </div>
-          <div class="research-card scroll-reveal delay-200">
-            <div class="focus-icon-wrapper"><i class="fa-solid fa-database"></i></div>
-            <div class="research-card-content">
-              <h3 data-i18n="focus.card3.title">Database Design</h3>
-              <p data-i18n="focus.card3.desc">Relational and non-relational data modeling with PostgreSQL, MySQL,
-                MongoDB and Prisma ORM.</p>
-            </div>
-          </div>
-          <div class="research-card scroll-reveal">
-            <div class="focus-icon-wrapper"><i class="fa-brands fa-docker"></i></div>
-            <div class="research-card-content">
-              <h3 data-i18n="focus.card4.title">Containers &amp; Deployment</h3>
-              <p data-i18n="focus.card4.desc">Packaging applications with Docker and Docker Compose for repeatable
-                environments.</p>
-            </div>
-          </div>
-          <div class="research-card scroll-reveal delay-100">
-            <div class="focus-icon-wrapper"><i class="fa-solid fa-desktop"></i></div>
-            <div class="research-card-content">
-              <h3 data-i18n="focus.card5.title">Desktop Applications</h3>
-              <p data-i18n="focus.card5.desc">Desktop systems with clean interfaces built in Java, JavaFX and
-                Swing.</p>
-            </div>
-          </div>
-          <div class="research-card scroll-reveal delay-200">
-            <div class="focus-icon-wrapper"><i class="fa-solid fa-brain"></i></div>
-            <div class="research-card-content">
-              <h3 data-i18n="focus.card6.title">Artificial Intelligence (Next)</h3>
-              <p data-i18n="focus.card6.desc">Extending this technical foundation into AI, beginning with a
-                Master's degree in September 2026.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== PROJECTS ===================== -->
-    <section id="projects" class="publications-section">
-      <div class="container">
-        <div class="section-header scroll-reveal">
-          <span class="subtitle" data-i18n="projects.subtitle">My Work</span>
-          <h2 class="section-title" data-i18n="projects.title">Selected Projects</h2>
-        </div>
-        <div class="pub-filter scroll-reveal">
-          <div class="filter-btns">
-            <button class="filter-btn active" data-filter="all" data-i18n="filter.all">All</button>
-            <button class="filter-btn" data-filter="web" data-i18n="filter.web">Web</button>
-            <button class="filter-btn" data-filter="desktop" data-i18n="filter.desktop">Desktop</button>
-          </div>
-        </div>
-
-        <div class="publications-list" id="projects-list">
-
-          <article class="pub-card scroll-reveal" data-year="web">
-            <div class="pub-year"><i class="fa-solid fa-horse"></i></div>
-            <div class="pub-info">
-              <span class="pub-journal" data-i18n="proj1.tag"><i class="fa-solid fa-layer-group"></i> Full-Stack Web Platform</span>
-              <h3 class="pub-title" data-i18n="proj1.title">HorseView — Smart Management Platform for Equestrian
-                Farms</h3>
-              <p class="pub-authors" data-i18n="proj1.desc">Designed and built a web platform that digitizes
-                equestrian center management in Algeria, replacing manual, paper-based booking systems. Implemented
-                online reservation, customer reviews, a management dashboard, and secure authentication (JWT,
-                bcrypt) connecting riders with equestrian centers. Containerized with Docker Compose.</p>
-              <div class="pub-meta">
-                <span class="pub-doi"><i class="fa-solid fa-fingerprint"></i> Next.js · TypeScript · Node.js</span>
-                <span class="pub-citation">PostgreSQL · Prisma ORM · Docker</span>
-              </div>
-            </div>
-            <a href="https://github.com/rofaida57" target="_blank" rel="noopener noreferrer"
-              class="btn btn-secondary pub-btn" data-i18n="proj1.btn">View Code <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-          </article>
-
-          <article class="pub-card scroll-reveal" data-year="desktop">
-            <div class="pub-year"><i class="fa-solid fa-calendar-check"></i></div>
-            <div class="pub-info">
-              <span class="pub-journal" data-i18n="proj2.tag"><i class="fa-solid fa-layer-group"></i> Desktop Application</span>
-              <h3 class="pub-title" data-i18n="proj2.title">AppointmentManager — Scheduling System</h3>
-              <p class="pub-authors" data-i18n="proj2.desc">A desktop system for scheduling and tracking
-                appointments, with a clean graphical interface built in JavaFX.</p>
-              <div class="pub-meta">
-                <span class="pub-doi"><i class="fa-solid fa-fingerprint"></i> Java · JavaFX</span>
-              </div>
-            </div>
-            <a href="https://github.com/rofaida57" target="_blank" rel="noopener noreferrer"
-              class="btn btn-secondary pub-btn" data-i18n="proj2.btn">View Code <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-          </article>
-
-          <article class="pub-card scroll-reveal" data-year="desktop">
-            <div class="pub-year"><i class="fa-solid fa-book"></i></div>
-            <div class="pub-info">
-              <span class="pub-journal" data-i18n="proj3.tag"><i class="fa-solid fa-layer-group"></i> Desktop Application</span>
-              <h3 class="pub-title" data-i18n="proj3.title">LibraryManager — Library Management System</h3>
-              <p class="pub-authors" data-i18n="proj3.desc">A desktop system for managing library inventory and
-                borrowing operations, built with Swing.</p>
-              <div class="pub-meta">
-                <span class="pub-doi"><i class="fa-solid fa-fingerprint"></i> Java · Swing</span>
-              </div>
-            </div>
-            <a href="https://github.com/rofaida57" target="_blank" rel="noopener noreferrer"
-              class="btn btn-secondary pub-btn" data-i18n="proj3.btn">View Code <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== EXPERIENCE ===================== -->
-    <section id="experience" class="experience-section">
-      <div class="container">
-        <div class="section-header scroll-reveal">
-          <span class="subtitle" data-i18n="experience.subtitle">Career Path</span>
-          <h2 class="section-title" data-i18n="experience.title">Work Experience</h2>
-        </div>
-        <div class="experience-timeline">
-
-          <div class="timeline-item scroll-reveal">
-            <div class="timeline-dot"></div>
-            <div class="timeline-date" data-i18n="exp1.duration">15-day Internship</div>
-            <div class="timeline-card">
-              <span class="location"><i class="fa-solid fa-map-pin"></i> Tissemsilt, Algeria</span>
-              <h3 data-i18n="exp1.title">Technical Intern — Network Support &amp; Python Web Development</h3>
-              <h4 data-i18n="exp1.org">Directorate of Health, Tissemsilt, Algeria</h4>
-              <p class="timeline-desc" data-i18n="exp1.p1">Assisted the IT team with network support and basic
-                troubleshooting, gaining hands-on exposure to a professional IT environment in a public
-                institution.</p>
-              <p class="timeline-desc" data-i18n="exp1.p2">Contributed to the development of an internal web
-                application using Python.</p>
-              <div class="experience-tags">
-                <span>Networking</span><span>Python</span><span>Public Sector</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== EDUCATION ===================== -->
-    <section id="education" class="education-section">
-      <div class="container">
-        <div class="section-header scroll-reveal">
-          <span class="subtitle" data-i18n="education.subtitle">Qualifications</span>
-          <h2 class="section-title" data-i18n="education.title">Education</h2>
-        </div>
-        <div class="education-timeline">
-
-          <div class="edu-card scroll-reveal" style="transition-delay:0ms">
-            <span class="edu-date">2026</span>
-            <div class="edu-info">
-              <h3 data-i18n="edu1.title">Master's Degree — Artificial Intelligence</h3>
-              <p class="edu-details" data-i18n="edu1.org">Faculty of Science and Technology, Tissemsilt University —
-                Incoming, starts September 2026</p>
-            </div>
-          </div>
-
-          <div class="edu-card scroll-reveal" style="transition-delay:100ms">
-            <span class="edu-date">2022–2025</span>
-            <div class="edu-info">
-              <h3 data-i18n="edu2.title">Bachelor's Degree — Information Systems Engineering</h3>
-              <p class="edu-details" data-i18n="edu2.org">Faculty of Science and Technology, Tissemsilt University —
-                2022 – 2025</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== SKILLS ===================== -->
-    <section id="skills" class="skills-section">
-      <div class="container">
-        <div class="section-header scroll-reveal">
-          <span class="subtitle" data-i18n="skills.subtitle">Specializations</span>
-          <h2 class="section-title" data-i18n="skills.title">Technical Skills</h2>
-        </div>
-        <div class="skills-grid">
-
-          <div class="skills-card scroll-reveal">
-            <h3><i class="fa-solid fa-layer-group card-header-icon"></i> <span data-i18n="skills.card1.title">Tech
-                Stack</span></h3>
-            <ul class="skills-list">
-              <li><strong data-i18n="skills.frontend">Frontend</strong><span class="skill-detail">Next.js · React.js
-                  · TypeScript · JavaScript · HTML5 · CSS3 · Tailwind CSS · Bootstrap</span></li>
-              <li><strong data-i18n="skills.backend">Backend</strong><span class="skill-detail">Node.js · Next.js
-                  API Routes · Python · Java</span></li>
-              <li><strong data-i18n="skills.database">Database</strong><span class="skill-detail">PostgreSQL · MySQL
-                  · MongoDB · Prisma ORM</span></li>
-              <li><strong data-i18n="skills.tools">Tools &amp; Other</strong><span class="skill-detail">Git &amp;
-                  GitHub · Linux · LaTeX · Docker · Docker Compose · JWT &amp; bcrypt · RESTful APIs · JavaFX ·
-                  Swing · MS Office</span></li>
-            </ul>
-          </div>
-
-          <div class="skills-card scroll-reveal delay-100">
-            <h3><i class="fa-solid fa-laptop-code card-header-icon"></i> Tools</h3>
-            <div class="skills-tags">
-              <span>Git &amp; GitHub</span>
-              <span>Docker</span>
-              <span>Linux</span>
-              <span>Prisma ORM</span>
-              <span>JWT / bcrypt</span>
-              <span>LaTeX</span>
-              <span>REST APIs</span>
-            </div>
-          </div>
-
-          <div class="skills-card scroll-reveal delay-200">
-            <h3><i class="fa-solid fa-language card-header-icon"></i> <span data-i18n="skills.card3.title">Languages</span></h3>
-            <div class="lang-meters">
-              <div class="lang-item">
-                <span class="lang-name" data-i18n="lang.arabic">Arabic</span>
-                <div class="meter-bar"><span data-width="100"></span></div>
-                <span class="lang-level" data-i18n="lang.arabic.level">Native</span>
-              </div>
-              <div class="lang-item">
-                <span class="lang-name" data-i18n="lang.english">English</span>
-                <div class="meter-bar"><span data-width="75"></span></div>
-                <span class="lang-level" data-i18n="lang.english.level">B2 — Upper-Intermediate</span>
-              </div>
-              <div class="lang-item">
-                <span class="lang-name" data-i18n="lang.french">French</span>
-                <div class="meter-bar"><span data-width="60"></span></div>
-                <span class="lang-level" data-i18n="lang.french.level">B1 — Intermediate</span>
-              </div>
-              <div class="lang-item">
-                <span class="lang-name" data-i18n="lang.spanish">Spanish</span>
-                <div class="meter-bar"><span data-width="35"></span></div>
-                <span class="lang-level" data-i18n="lang.spanish.level">A2 — Elementary</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== CERTIFICATIONS ===================== -->
-    <section id="certifications" class="conferences-section">
-      <div class="container">
-        <div class="section-header scroll-reveal">
-          <span class="subtitle" data-i18n="certs.subtitle">Ongoing Growth</span>
-          <h2 class="section-title" data-i18n="certs.title">Certifications &amp; Leadership</h2>
-        </div>
-        <div class="conferences-container">
-
-          <div class="conf-item scroll-reveal" style="transition-delay:0ms">
-            <div class="conf-meta"><span class="conf-year">2026</span><span class="conf-loc" data-i18n="cert1.org">Edraak, sponsored by Crescent
-                Petroleum</span></div>
-            <div class="conf-details">
-              <h3 data-i18n="cert1.title">Artificial Intelligence for Employment — Specialization</h3>
-              <p class="conf-date" data-i18n="cert1.date">July 2026</p>
-            </div>
-          </div>
-
-          <div class="conf-item scroll-reveal" style="transition-delay:80ms">
-            <div class="conf-meta"><span class="conf-year">2026</span><span class="conf-loc" data-i18n="cert2.org">Edraak /
-                Queen Rania Teacher Academy</span></div>
-            <div class="conf-details">
-              <h3 data-i18n="cert2.title">Education Technology: Principles, Strategies, Applications</h3>
-              <p class="conf-date" data-i18n="cert2.date">Awarded 22 July 2026</p>
-            </div>
-          </div>
-
-          <div class="conf-item scroll-reveal" style="transition-delay:160ms">
-            <div class="conf-meta"><span class="conf-year"><i class="fa-solid fa-star"></i></span><span class="conf-loc" data-i18n="cert3.org">Dept.
-                of Information Systems Engineering, Tissemsilt University</span></div>
-            <div class="conf-details">
-              <h3 data-i18n="cert3.title">Class Delegate</h3>
-              <p class="conf-date" data-i18n="cert3.date">Several years</p>
-            </div>
-          </div>
-
-          <div class="conf-item scroll-reveal" style="transition-delay:240ms">
-            <div class="conf-meta"><span class="conf-year"><i class="fa-solid fa-star"></i></span><span class="conf-loc" data-i18n="cert4.org">Student
-                Science Club</span></div>
-            <div class="conf-details">
-              <h3 data-i18n="cert4.title">Member — V-Tech Scientific Club</h3>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== CONTACT ===================== -->
-    <section id="contact" class="contact-section">
-      <div class="container">
-        <div class="section-header scroll-reveal">
-          <span class="subtitle" data-i18n="contact.subtitle">Get in Touch</span>
-          <h2 class="section-title" data-i18n="contact.title">Contact Rofaida</h2>
-        </div>
-        <div class="contact-grid">
-          <div class="contact-info scroll-reveal">
-            <div class="info-item">
-              <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
-              <div>
-                <h3 data-i18n="contact.email">Email</h3>
-                <p><a href="mailto:bouchamarofaida1@gmail.com">bouchamarofaida1@gmail.com</a></p>
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
-              <div>
-                <h3 data-i18n="contact.phone">Phone</h3>
-                <p><a href="tel:+213669789577">+213 666 666 666</a></p>
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-icon"><i class="fa-solid fa-map-location-dot"></i></div>
-              <div>
-                <h3 data-i18n="contact.location">Location</h3>
-                <p data-i18n="contact.locationValue">Tissemsilt, Algeria</p>
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-icon"><i class="fa-brands fa-github"></i></div>
-              <div>
-                <h3 data-i18n="contact.github">GitHub</h3>
-                <p><a href="https://github.com/rofaida57" target="_blank"
-                    rel="noopener noreferrer">github.com/rofaida57</a></p>
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-icon"><i class="fa-solid fa-globe"></i></div>
-              <div>
-                <h3 data-i18n="contact.portfolio">Portfolio</h3>
-                <p><a href="https://rofaida57.github.io/portofolio/" target="_blank"
-                    rel="noopener noreferrer" data-i18n="contact.portfolioValue">View live site</a></p>
-              </div>
-            </div>
-          </div>
-
-          <form class="contact-form scroll-reveal delay-200" id="contact-form"
-            action="https://formsubmit.co/bouchamarofaida1@gmail.com"
-            data-ajax-endpoint="https://formsubmit.co/ajax/bouchamarofaida1@gmail.com" method="POST">
-
-            <input type="hidden" name="_subject" value="New message — Personal Portfolio" />
-            <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_replyto" id="replyto-hidden" />
-            <input type="hidden" name="Submitted on" id="submitted-on" />
-
-            <h3 class="form-title" data-i18n="contact.form.title">Send a Message</h3>
-
-            <div class="form-group">
-              <label for="name" data-i18n="contact.form.name">Full Name</label>
-              <input type="text" id="name" name="Full Name" required placeholder="Jane Doe" />
-            </div>
-
-            <div class="form-group">
-              <label for="email" data-i18n="contact.form.email">Email Address</label>
-              <input type="email" id="email" name="email" required placeholder="jane.doe@email.com" />
-            </div>
-
-            <div class="form-group">
-              <label for="subject" data-i18n="contact.form.subject">Subject</label>
-              <input type="text" id="subject" name="subject" required placeholder="Job opportunity / Collaboration" />
-            </div>
-
-            <div class="form-group">
-              <label for="message" data-i18n="contact.form.message">Message</label>
-              <textarea id="message" name="message" rows="5" required
-                placeholder="Write your message here…"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary form-submit"><span data-i18n="contact.form.submit">Send
-                Message</span> <i class="fa-solid fa-paper-plane"></i></button>
-            <div class="form-feedback" id="form-feedback" role="status" aria-live="polite"></div>
-          </form>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- ===================== FOOTER ===================== -->
-  <footer class="footer-bar">
-    <div class="container footer-container">
-      <p data-i18n="footer.rights">&copy; 2026 Rofaida Bouchama. All Rights Reserved.</p>
-      <div class="footer-quick-links">
-        <a href="#about" data-i18n="nav.about">About</a>
-        <a href="#projects" data-i18n="nav.projects">Projects</a>
-        <a href="#experience" data-i18n="nav.experience">Experience</a>
-        <a href="#contact" data-i18n="nav.contact">Contact</a>
-      </div>
-      <div class="footer-links">
-        <a href="https://github.com/rofaida57" target="_blank" rel="noopener noreferrer" title="GitHub Profile"><i
-            class="fa-brands fa-github"></i></a>
-        <a href="https://rofaida57.github.io/portofolio/" target="_blank" rel="noopener noreferrer"
-          title="Live Portfolio"><i class="fa-solid fa-globe"></i></a>
-        <a href="#hero" title="Back to top"><i class="fa-solid fa-arrow-up"></i></a>
-      </div>
+      <span class="chip c1">Python</span><span class="chip c2">C++</span><span class="chip c3">HTML</span><span class="chip c4">Git</span>
     </div>
-  </footer>
+  </div>
+  <div class="scroll-hint"></div>
+</section>
 
-  <script src="translations.js"></script>
-  <script src="script.js"></script>
+<!-- About -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">01 / About</div>
+      <h2>What is Pro-Programming</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="stats" data-stagger>
+      <div class="card reveal"><div class="ico">{ }</div><div class="num" id="n1" data-count="0">0</div><div class="lbl">Projects</div></div>
+      <div class="card reveal"><div class="ico">&lt;/&gt;</div><div class="num" id="n2" data-count="0">0</div><div class="lbl">Technologies</div></div>
+      <div class="card reveal"><div class="ico">&gt;_</div><div class="num" id="n3" data-count="0">0</div><div class="lbl">Focus Areas</div></div>
+    </div>
+    <div class="card about-text reveal" data-anim="scale">
+      Pro-Programming is a page dedicated to <b>practical programming</b>. We cover web development, desktop and mobile apps, and system-level languages, building <b>real projects</b> and sharing them openly so anyone can learn by example.
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">02 / Technologies</div>
+      <h2>Technical Arsenal</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="skills" id="skillGrid" data-stagger></div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">03 / Work</div>
+      <h2>Featured Projects</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="proj-grid" id="projGrid" data-stagger></div>
+  </div>
+</section>
+
+<!-- Approach -->
+<section id="approach">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">04 / Approach</div>
+      <h2>How We Work</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="timeline">
+      <div class="step"><div class="card reveal" data-anim="left"><div class="dot">01</div><h3>Learn</h3><p>Start from the fundamentals of web, desktop and system-level programming.</p></div></div>
+      <div class="step"><div class="card reveal" data-anim="left"><div class="dot">02</div><h3>Build</h3><p>Turn concepts into real, working projects with clean and readable code.</p></div></div>
+      <div class="step"><div class="card reveal" data-anim="left"><div class="dot">03</div><h3>Share</h3><p>Publish everything openly so others can learn from the source and the result.</p></div></div>
+      <div class="step"><div class="card reveal" data-anim="left"><div class="dot">04</div><h3>Improve</h3><p>Iterate, refactor and keep raising the quality of every project.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">05 / Contact</div>
+      <h2>Let's Build Something Great</h2>
+      <div class="bar"></div>
+    </div>
+    <p class="contact-lead reveal">Have an idea, a question or a collaboration in mind? Reach out through any of the channels below.</p>
+    <div class="contact-grid" data-stagger>
+      <a class="card reveal" data-anim="scale" href="https://github.com/rofaida57" target="_blank" rel="noopener"><div class="ico">GH</div><h3>GitHub</h3><p>@rofaida57</p></a>
+      <a class="card reveal" data-anim="scale" href="mailto:your-email@example.com"><div class="ico">@</div><h3>Email</h3><p>your-email@example.com</p></a>
+      <a class="card reveal" data-anim="scale" href="https://rofaida57.github.io/firstgame/" target="_blank" rel="noopener"><div class="ico">▶</div><h3>Live Demo</h3><p>Cup Sorting Game</p></a>
+    </div>
+    <a href="mailto:your-email@example.com" class="btn btn-fill reveal">Start a Conversation →</a>
+  </div>
+</section>
+
+<footer>
+  <a href="#home" class="logo"><span class="logo-mark">&lt;/&gt;</span>Pro-Programming</a>
+  <p>Learn · Build · Share</p>
+  <small>© <span id="year">2026</span> Pro-Programming. All rights reserved.</small><br>
+  <a href="#home" class="top">↑ Back to top</a>
+</footer>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+  /* ---------- Data ---------- */
+  const skills=[
+    {g:'</>',t:'Web Frontend',items:['HTML','CSS','JavaScript','jQuery']},
+    {g:'{ }',t:'Web Backend',items:['Python','Flask','PHP']},
+    {g:'[ ]',t:'Desktop & Mobile',items:['Java','Java Swing','JavaFX','Dart']},
+    {g:'>_',t:'Systems & Languages',items:['C','C++','Linux','Jison']},
+    {g:'DB',t:'Data & Tools',items:['MySQL','XAMPP','Git']}
+  ];
+  const demo='https://rofaida57.github.io/portofolio/';
+  const web=['HTML','CSS','JavaScript'];
+  const projects=[
+    {t:'Cup Sorting Game',d:'A fun and interactive cup sorting puzzle that challenges logic and focus.',tags:web,u:'https://rofaida57.github.io/firstgame/'},
+    {t:'IA Reference',d:'A reference platform with a clean structure and fast, organized content.',tags:web,u:demo},
+    {t:'Blogging Platform',d:'Publish and manage articles with a flexible content layout.',tags:web,u:demo},
+    {t:'Task Manager',d:'A responsive task manager with alerts and progress tracking.',tags:web,u:demo},
+    {t:'E-Commerce Dashboard',d:'An admin dashboard for products, orders and simple analytics.',tags:web,u:demo},
+    {t:'Social Media Analytics',d:'Track engagement and performance metrics in a clear dashboard.',tags:web,u:demo}
+  ];
+
+  /* ---------- Render ---------- */
+  $('#skillGrid').innerHTML=skills.map(s=>`
+    <div class="card skill reveal" data-anim="scale">
+      <div class="ico">${s.g.replace('<','&lt;').replace('>','&gt;')}</div>
+      <h3>${s.t}</h3>
+      <div class="tags">${s.items.map(i=>`<span class="tag">${i}</span>`).join('')}</div>
+    </div>`).join('');
+
+  $('#projGrid').innerHTML=projects.map((p,i)=>`
+    <article class="card proj reveal">
+      <div class="thumb" style="--ang:${135+i*30}deg"><span class="idx">${String(i+1).padStart(2,'0')}</span></div>
+      <div class="proj-body">
+        <h3>${p.t}</h3>
+        <p>${p.d}</p>
+        <div class="tags">${p.tags.map(x=>`<span class="tag">${x}</span>`).join('')}</div>
+        <a class="link" href="${p.u}" target="_blank" rel="noopener">View project <span>→</span></a>
+      </div>
+    </article>`).join('');
+
+  $('#n1').dataset.count=projects.length;
+  $('#n2').dataset.count=skills.reduce((a,s)=>a+s.items.length,0);
+  $('#n3').dataset.count=skills.length;
+  $('#year').textContent=new Date().getFullYear();
+
+  /* ---------- Animated title ---------- */
+  const title=$('#title'), text=title.textContent.trim();
+  title.setAttribute('aria-label',text);
+  title.textContent='';
+  const word=document.createElement('span');
+  word.className='word'; word.setAttribute('aria-hidden','true');
+  [...text].forEach((c,i)=>{
+    const s=document.createElement('span');
+    s.className='ch'; s.style.setProperty('--i',i); s.textContent=c;
+    word.appendChild(s);
+  });
+  title.appendChild(word);
+
+  /* ---------- Scroll reveal ---------- */
+  $$('[data-stagger]').forEach(c=>[...c.children].forEach((el,i)=>{el.style.transitionDelay=(i*0.12)+'s';}));
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el=e.target; el.classList.add('show'); io.unobserve(el);
+    const d=parseFloat(el.style.transitionDelay)||0;
+    setTimeout(()=>{el.style.transitionDelay='';},(d+1)*1000);
+  }),{threshold:.12,rootMargin:'0px 0px -60px 0px'});
+  $$('.reveal').forEach(el=>io.observe(el));
+
+  /* ---------- Counters ---------- */
+  const co=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting) return;
+    co.unobserve(e.target);
+    const el=e.target, end=+el.dataset.count, t0=performance.now();
+    (function step(t){
+      const p=Math.min((t-t0)/1400,1);
+      el.textContent=Math.round(end*(1-Math.pow(1-p,3)));
+      if(p<1) requestAnimationFrame(step);
+    })(t0);
+  }),{threshold:.6});
+  $$('.num').forEach(el=>co.observe(el));
+
+  /* ---------- Nav, progress, active link ---------- */
+  const nav=$('#nav'), bar=$('#progress'), secs=$$('section[id]'), links=$$('.links a');
+  function onScroll(){
+    const y=window.scrollY, h=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=(h>0?y/h*100:0)+'%';
+    nav.classList.toggle('scrolled',y>40);
+    let cur='home';
+    secs.forEach(s=>{ if(y>=s.offsetTop-220) cur=s.id; });
+    links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+  }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  /* ---------- Theme + mobile menu ---------- */
+  $('#theme').addEventListener('click',()=>{
+    const r=document.documentElement;
+    r.dataset.theme=r.dataset.theme==='dark'?'light':'dark';
+  });
+  const menu=$('#links');
+  $('#burger').addEventListener('click',()=>menu.classList.toggle('open'));
+  links.forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
+
+  /* ---------- Custom cursor ---------- */
+  const cur=$('#cursor');
+  if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+    let mx=innerWidth/2,my=innerHeight/2,x=mx,y=my;
+    addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.classList.add('on');});
+    (function loop(){
+      x+=(mx-x)*.15; y+=(my-y)*.15;
+      cur.style.transform='translate3d('+x+'px,'+y+'px,0) translate(-50%,-50%)';
+      requestAnimationFrame(loop);
+    })();
+    document.addEventListener('mouseover',e=>cur.classList.toggle('hover',!!e.target.closest('a,button')));
+  } else { cur.style.display='none'; }
+})();
+</script>
 </body>
-
 </html>
